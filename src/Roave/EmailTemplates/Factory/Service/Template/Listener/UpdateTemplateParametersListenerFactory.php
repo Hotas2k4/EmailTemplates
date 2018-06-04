@@ -8,6 +8,7 @@
 
 namespace Roave\EmailTemplates\Factory\Service\Template\Listener;
 
+use Interop\Container\ContainerInterface;
 use Roave\EmailTemplates\Options\TemplateServiceOptions;
 use Roave\EmailTemplates\Repository\TemplateRepository;
 use Roave\EmailTemplates\Service\Template\Listener\UpdateTemplateParametersListener;
@@ -37,4 +38,9 @@ class UpdateTemplateParametersListenerFactory implements FactoryInterface
             $serviceLocator->get(TemplateServiceOptions::class)
         );
     }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
+    }
+
 }

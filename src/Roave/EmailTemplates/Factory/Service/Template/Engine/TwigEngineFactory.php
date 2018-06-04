@@ -40,6 +40,7 @@
 
 namespace Roave\EmailTemplates\Factory\Service\Template\Engine;
 
+use Interop\Container\ContainerInterface;
 use Roave\EmailTemplates\Options\Template\Engine\TwigOptions;
 use Roave\EmailTemplates\Service\Template\Engine\Twig;
 use Roave\EmailTemplates\Service\Template\EnginePluginManager;
@@ -63,4 +64,9 @@ class TwigEngineFactory implements FactoryInterface
             $sl->get(TwigOptions::class)
         );
     }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
+    }
+
 }

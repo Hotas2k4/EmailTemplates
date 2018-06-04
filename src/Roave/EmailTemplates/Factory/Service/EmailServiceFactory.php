@@ -40,10 +40,14 @@
 
 namespace Roave\EmailTemplates\Factory\Service;
 
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Roave\EmailTemplates\Options\EmailServiceOptions;
 use Roave\EmailTemplates\Service\EmailService;
 use Roave\EmailTemplates\Service\TemplateService;
 use Zend\Mail\Transport\TransportInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -76,5 +80,9 @@ class EmailServiceFactory implements FactoryInterface
         $service->setTransport($transport);
 
         return $service;
+    }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
     }
 }

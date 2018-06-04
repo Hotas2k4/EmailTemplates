@@ -41,6 +41,7 @@
 namespace Roave\EmailTemplates\Factory\Service;
 
 use Doctrine\ORM\EntityManager;
+use Interop\Container\ContainerInterface;
 use Roave\EmailTemplates\Hydrator\TemplateHydrator;
 use Roave\EmailTemplates\InputFilter\TemplateInputFilter;
 use Roave\EmailTemplates\Options\TemplateServiceOptions;
@@ -82,5 +83,9 @@ class TemplateServiceFactory implements FactoryInterface
             ->attach($serviceLocator->get(UpdateTemplateParametersListener::class));
 
         return $service;
+    }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
     }
 }

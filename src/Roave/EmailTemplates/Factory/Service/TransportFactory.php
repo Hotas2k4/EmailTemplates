@@ -40,6 +40,7 @@
 
 namespace Roave\EmailTemplates\Factory\Service;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mail\Transport\File;
 use Zend\Mail\Transport\FileOptions;
 use Zend\Mail\Transport\Sendmail;
@@ -85,5 +86,9 @@ class TransportFactory implements FactoryInterface
             default:
                 throw new Exception\InvalidArgumentException(sprintf('Unknown transport "%s"', $type));
         }
+    }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
     }
 }

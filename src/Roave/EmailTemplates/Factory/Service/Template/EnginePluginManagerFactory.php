@@ -40,6 +40,7 @@
 
 namespace Roave\EmailTemplates\Factory\Service\Template;
 
+use Interop\Container\ContainerInterface;
 use Roave\EmailTemplates\Service\Template\EnginePluginManager;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\FactoryInterface;
@@ -64,5 +65,9 @@ class EnginePluginManagerFactory implements FactoryInterface
         $config = $serviceLocator->get('Config')['roave']['email_templates']['engine_manager'];
 
         return new EnginePluginManager($serviceLocator, $config);
+    }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
     }
 }

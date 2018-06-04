@@ -40,6 +40,7 @@
 
 namespace Roave\EmailTemplates\Factory\Repository;
 
+use Interop\Container\ContainerInterface;
 use Roave\EmailTemplates\Entity\TemplateEntity;
 use Roave\EmailTemplates\Repository\TemplateRepository;
 use Zend\ServiceManager\FactoryInterface;
@@ -59,5 +60,9 @@ class TemplateRepositoryFactory implements FactoryInterface
         return new TemplateRepository(
             $serviceLocator->get('Roave\EmailTemplates\ObjectManager')->getRepository(TemplateEntity::class)
         );
+    }
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+        return $this->createService($container);
     }
 }
